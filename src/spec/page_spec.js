@@ -493,6 +493,25 @@ describe('Page', () => {
         // confirm we are in the main frame
         expect(inMainFrame).toBe(true);
     });
+
+    it('#switchToParentFrame() will switch back to the parent frame', function*() {
+        let page = yield phantom.createPage();
+        let html = '<html><head><title>Iframe Test</title></head><body><iframe id="testframe" src="http://localhost:8888/test.html"></iframe></body></html>';
+
+        yield page.setContent(html, 'http://localhost:8888/');
+
+        // need to switch to child frame here to test switchToParentFrame() works
+        yield page.switchToFrame(0);
+        yield page.switchToParentFrame();
+
+        let inParentFrame = yield page.evaluate(function () {
+            // are we in the parent frame?
+            return !window.frameElement;
+        });
+
+        // confirm we are in the main frame
+        expect(inParentFrame).toBe(true);
+    });
     
     it('#reload() will reload the current page', function*() {
         let page = yield phantom.createPage();

@@ -102,7 +102,8 @@ const methods = [
     'setProxy',
     'stop',
     'switchToFrame',
-    'switchToMainFrame'
+    'switchToMainFrame',
+    'switchToParentFrame'
 ];
 
 asyncMethods.forEach(method => {
